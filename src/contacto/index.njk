@@ -7,7 +7,7 @@ subsecciones:
   - { id: despacho, titulo: Despacho parroquial }
   - { id: sacerdotes, titulo: Sacerdotes }
   - { id: sacramentos, titulo: Sacramentos y trámites }
-  - { id: whatsapp, titulo: Canal de WhatsApp }
+  - { id: whatsapp, titulo: WhatsApp }
 ---
 {% import "macros.njk" as m %}
 {% set d = site.despacho %}
@@ -25,7 +25,15 @@ subsecciones:
 <section id="sacerdotes" class="seccion">
   <h2>Sacerdotes</h2>
   {% if site.sacerdotes | length %}
-  <ul class="lista-simple">{% for s in site.sacerdotes %}<li><strong>{{ s.nombre }}</strong>{% if s.cargo %} — {{ s.cargo }}{% endif %}</li>{% endfor %}</ul>
+  <div class="tarjetas">
+    {% for s in site.sacerdotes %}
+    <div class="tarjeta sacerdote">
+      <p class="sacerdote__cargo">{{ s.cargo }}</p>
+      <h3>{{ s.nombre }}</h3>
+      {% if s.telefono %}<p><a class="sacerdote__tel" href="tel:{{ s.telefono | replace(' ', '') }}">{{ s.telefono }}</a></p>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
   {% else %}
   {{ m.pendiente("Nombre del párroco y de los sacerdotes que atienden la Unidad Pastoral.") }}
   {% endif %}
@@ -46,11 +54,11 @@ subsecciones:
 </section>
 
 <section id="whatsapp" class="seccion">
-  <h2>Canal de WhatsApp</h2>
-  <p>La hoja parroquial con los horarios y avisos de cada semana se publica en el canal de WhatsApp de la Unidad Pastoral.</p>
+  <h2>Grupo de WhatsApp</h2>
+  <p>Los avisos, los cambios de horario y la hoja parroquial de cada semana se publican en el grupo de WhatsApp de la Unidad Pastoral.</p>
   {% if site.whatsapp %}
-  <p><a class="boton" href="{{ site.whatsapp }}" rel="noopener">Unirse al canal</a></p>
+  <p><a class="boton" href="{{ site.whatsapp }}" rel="noopener">Unirse al grupo de WhatsApp</a></p>
   {% else %}
-  {{ m.pendiente("Enlace para unirse al canal.") }}
+  {{ m.pendiente("Enlace para unirse al grupo.") }}
   {% endif %}
 </section>

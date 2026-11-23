@@ -2,7 +2,7 @@
 layout: base.njk
 title: Horarios de misa
 seccion: horarios
-entradilla: Misas de sábado por la tarde y de domingo en las parroquias de la Unidad Pastoral.
+entradilla: Misas entre semana, de sábado por la tarde y de domingo en las parroquias de la Unidad Pastoral.
 subsecciones:
   - { id: fin-de-semana, titulo: Fin de semana }
   - { id: diario, titulo: Entre semana }
@@ -15,32 +15,37 @@ subsecciones:
 
 <section id="fin-de-semana" class="seccion">
   <h2>Fin de semana</h2>
+  <p class="nota nota--arriba">Las misas que coinciden a la misma hora aparecen juntas en la misma fila.</p>
   <div class="columnas">
+    {% for dia in ["sabado", "domingo"] %}
     <div class="caja">
-      <h3>Sábado <span class="sufijo">misas vespertinas</span></h3>
+      <h3>{{ dia | diaNombre }}{% if dia == "sabado" %} <span class="sufijo">por la tarde</span>{% endif %}</h3>
       <ul class="misas">
-        {% for misa in misas.semanal | misasDia("sabado") %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}
+        {% for grupo in misasLista | misasDia(dia) | agruparHora %}{{ m.filaHora(grupo, parroquias) }}{% endfor %}
       </ul>
     </div>
-    <div class="caja">
-      <h3>Domingo</h3>
-      <ul class="misas">
-        {% for misa in misas.semanal | misasDia("domingo") %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}
-      </ul>
-    </div>
+    {% endfor %}
   </div>
 </section>
 
 <section id="diario" class="seccion">
   <h2>Entre semana</h2>
-  {% set laborables = misas.semanal | diasConMisa | reject("equalto", "sabado") | reject("equalto", "domingo") %}
-  {% if laborables | length %}
-    {% for dia in laborables %}
-    <h3>{{ dia | diaNombre }}</h3>
-    <ul class="misas">{% for misa in misas.semanal | misasDia(dia) %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}</ul>
-    {% endfor %}
+  {% set diario = misasLista | laborables | resumenDias %}
+  {% if diario | length %}
+  <div class="caja">
+    <ul class="misas">
+      {% for r in diario %}
+      {% set p = parroquias | porSlug(r.parroquia) %}
+      <li class="misa misa--resumen">
+        <span class="misa__dia">{{ r.diasTexto }}</span>
+        <span class="misa__hora">{{ r.hora }}</span>
+        <span class="misa__sitio"><a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a>{% if r.lugar %} · {{ r.lugar }}{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
   {% else %}
-    {{ m.pendiente("Horario de misas de lunes a viernes.") }}
+  {{ m.pendiente("Horario de misas de lunes a viernes.") }}
   {% endif %}
 </section>
 
@@ -57,13 +62,13 @@ subsecciones:
   </div>
   <div class="rejilla-parroquias">
     {% for p in parroquias %}
-    {% set suyas = misas.semanal | misasDe(p.slug) %}
+    {% set suyas = misasLista | misasDe(p.slug) | resumenDias %}
     <div class="caja bloque-parroquia" data-slug="{{ p.slug }}">
       <h3><a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a></h3>
       {% if suyas | length %}
-      <ul class="misas">{% for misa in suyas %}{{ m.filaMisa(misa, parroquias, true) }}{% endfor %}</ul>
+      <ul class="misas">{% for r in suyas %}{{ m.filaResumen(r) }}{% endfor %}</ul>
       {% else %}
-      <p class="nota">Sin misa fija este fin de semana.</p>
+      <p class="nota">Sin misa fija.</p>
       {% endif %}
     </div>
     {% endfor %}

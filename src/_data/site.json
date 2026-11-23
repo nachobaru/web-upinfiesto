@@ -4,12 +4,23 @@
   "descripcion": "Horarios de misa, parroquias, actividades y contacto de la Unidad Pastoral de Infiesto, en el concejo de Piloña (Asturias).",
   "numeroParroquias": 26,
   "borrador": true,
-  "whatsapp": "",
+  "whatsapp": "https://chat.whatsapp.com/LPNXQACoGKtCRWRXz20dyA",
   "despacho": {
     "direccion": "",
     "telefono": "",
     "email": "",
     "horario": ""
   },
-  "sacerdotes": []
+  "sacerdotes": [
+    {
+      "nombre": "Alfonso",
+      "cargo": "Párroco",
+      "telefono": "+34 628 54 86 28"
+    },
+    {
+      "nombre": "Rafa",
+      "cargo": "Vicario parroquial",
+      "telefono": "+34 615 81 47 80"
+    }
+  ]
 }

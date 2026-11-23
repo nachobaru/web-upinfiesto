@@ -13,7 +13,7 @@ subsecciones:
   <h2>Listado de parroquias</h2>
   <div class="tarjetas-parroquia">
     {% for p in parroquias %}
-    {% set suyas = misas.semanal | misasDe(p.slug) %}
+    {% set suyas = misasLista | misasDe(p.slug) | resumenDias %}
     <a class="tarjeta-parroquia" href="/parroquias/{{ p.slug }}/">
       {% if p.foto %}
       <img src="{{ p.foto }}" alt="Iglesia de {{ p.nombre }}" loading="lazy">
@@ -23,7 +23,7 @@ subsecciones:
       <span class="tarjeta-parroquia__cuerpo">
         <span class="tarjeta-parroquia__nombre">{{ p.nombre }}</span>
         <span class="tarjeta-parroquia__misas">
-          {% if suyas | length %}{% for misa in suyas %}{{ misa.dia | diaNombre }} {{ misa.hora }}{% if not loop.last %} · {% endif %}{% endfor %}{% else %}Sin misa fija{% endif %}
+          {% if suyas | length %}{% for r in suyas %}{{ r.diasTexto }} {{ r.hora }}{% if not loop.last %} · {% endif %}{% endfor %}{% else %}Sin misa fija{% endif %}
         </span>
       </span>
     </a>

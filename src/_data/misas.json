@@ -1,9 +1,12 @@
 {
-  "aviso": "Horario provisional. Puede cambiar en verano, fiestas y Semana Santa: confírmelo en el canal de WhatsApp o en el despacho parroquial.",
+  "aviso": "Horario provisional. Puede cambiar en verano, fiestas y Semana Santa: confírmelo en el grupo de WhatsApp o en el despacho parroquial.",
   "semanal": [
+    { "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"], "hora": "19:30", "parroquia": "infiesto", "lugar": "Capilla de la Obra Pía" },
+
     { "dia": "sabado", "hora": "17:00", "parroquia": "miyares" },
     { "dia": "sabado", "hora": "18:00", "parroquia": "berbio" },
     { "dia": "sabado", "hora": "19:30", "parroquia": "infiesto" },
+
     { "dia": "domingo", "hora": "10:00", "parroquia": "ques" },
     { "dia": "domingo", "hora": "10:00", "parroquia": "borines" },
     { "dia": "domingo", "hora": "11:00", "parroquia": "beloncio" },

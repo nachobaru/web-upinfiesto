@@ -12,7 +12,7 @@ Casi todo el contenido está en ficheros de datos dentro de `src/_data/`. No hac
 |---|---|
 | Horarios de misa | `src/_data/misas.json` |
 | Parroquias (nombre, templo, fiestas, historia, foto…) | `src/_data/parroquias.json` |
-| Avisos de la portada | `src/_data/avisos.json` |
+| Avisos extra en la portada (los avisos normales van al grupo de WhatsApp) | `src/_data/avisos.json` |
 | Actividades (catequesis, Cáritas…) | `src/_data/actividades.json` |
 | Despacho, sacerdotes, enlace de WhatsApp | `src/_data/site.json` |
 
@@ -27,10 +27,23 @@ En `misas.json`, dentro de `semanal`, añade una línea:
 - `dia`: `lunes`, `martes`, `miercoles`, `jueves`, `viernes`, `sabado` o `domingo` (sin tildes).
 - `hora`: siempre con dos cifras, `09:30`, `17:00`.
 - `parroquia`: el `slug` de la parroquia tal y como aparece en `parroquias.json`.
+- `lugar` (opcional): si la misa no es en la iglesia parroquial, por ejemplo `"Capilla de la Obra Pía"`.
+
+Si una misa se repite varios días a la misma hora, se puede escribir una sola vez con `dias`:
+
+```json
+{ "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"], "hora": "19:30", "parroquia": "infiesto", "lugar": "Capilla de la Obra Pía" }
+```
+
+La web junta sola las misas que coinciden a la misma hora y escribe «De lunes a viernes».
 
 ### Añadir una parroquia
 
 Copia un bloque de `parroquias.json` y cambia `slug` (en minúsculas, sin tildes ni espacios) y `nombre`. Su página se crea sola en `/parroquias/<slug>/`.
+
+Campos de cada parroquia: `templo`, `advocacion`, `fiestas`, `pueblo` (unas líneas sobre el pueblo), `historia`, `direccion`, `mapa`, `foto` y `fotoCredito`.
+
+El botón «Ver la iglesia en Google Maps» busca «Iglesia <nombre>, Piloña, Asturias». Si no acierta con la iglesia, pega en `mapa` el enlace exacto: en Google Maps, abre la iglesia, pulsa **Compartir → Copiar enlace**.
 
 Si añades una foto, guárdala en `src/assets/img/` y pon en `foto` la ruta `/assets/img/nombre.jpg`. Si la foto no es propia, rellena `fotoCredito` con el autor y la licencia.
 

@@ -13,16 +13,24 @@
 </svg>
 {%- endmacro %}
 
-{# Una misa. En un listado general: hora + lugar. Dentro de una parroquia (porDia): día + hora. #}
-{% macro filaMisa(misa, parroquias, porDia=false) -%}
-{% set p = parroquias | porSlug(misa.parroquia) %}
+{# Una hora con todas las misas que coinciden a esa hora, una al lado de otra. #}
+{% macro filaHora(grupo, parroquias) -%}
 <li class="misa">
-  {%- if porDia %}<span class="misa__dia">{{ misa.dia | diaNombre }}</span>{% endif %}
-  <span class="misa__hora">{{ misa.hora }}</span>
-  {%- if not porDia %}
-  <span class="misa__lugar">
-    {%- if p %}<a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a>{% else %}{{ misa.parroquia }}{% endif -%}
+  <span class="misa__hora">{{ grupo.hora }}</span>
+  <span class="misa__lugares">
+    {%- for misa in grupo.misas %}
+    {% set p = parroquias | porSlug(misa.parroquia) %}
+    <a class="lugar" href="/parroquias/{{ p.slug }}/">{{ p.nombre }}{% if misa.lugar %}<small>{{ misa.lugar }}</small>{% endif %}</a>
+    {%- endfor %}
   </span>
-  {%- endif %}
+</li>
+{%- endmacro %}
+
+{# Dentro de una parroquia: «De lunes a viernes · 19:30 · Capilla…». #}
+{% macro filaResumen(r) -%}
+<li class="misa misa--resumen">
+  <span class="misa__dia">{{ r.diasTexto }}</span>
+  <span class="misa__hora">{{ r.hora }}</span>
+  {%- if r.lugar %}<span class="misa__sitio">{{ r.lugar }}</span>{% endif %}
 </li>
 {%- endmacro %}

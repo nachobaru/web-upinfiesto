@@ -1,7 +1,30 @@
 [
-  { "id": "catequesis", "titulo": "Catequesis", "texto": "", "detalles": ["Catequesis de familias en Infiesto (día y hora por confirmar)"] },
-  { "id": "liturgia", "titulo": "Liturgia y coro", "texto": "", "detalles": [] },
-  { "id": "caritas", "titulo": "Cáritas", "texto": "", "detalles": [] },
-  { "id": "grupos", "titulo": "Grupos parroquiales", "texto": "", "detalles": [] },
-  { "id": "fiestas", "titulo": "Fiestas y calendario", "texto": "", "detalles": [] }
+  {
+    "id": "catequesis",
+    "titulo": "Catequesis",
+    "texto": "",
+    "detalles": [
+      "Viernes en Infiesto (hora por confirmar).",
+      "Domingos a las 11:00 en Sevares.",
+      "Catequesis familiar: el tercer sábado de cada mes a las 17:30 en Infiesto."
+    ]
+  },
+  {
+    "id": "caritas",
+    "titulo": "Cáritas",
+    "texto": "",
+    "detalles": []
+  },
+  {
+    "id": "grupos",
+    "titulo": "Grupos parroquiales",
+    "texto": "",
+    "detalles": []
+  },
+  {
+    "id": "fiestas",
+    "titulo": "Fiestas y calendario",
+    "texto": "",
+    "detalles": []
+  }
 ]

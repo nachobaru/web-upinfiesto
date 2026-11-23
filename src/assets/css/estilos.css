@@ -1,0 +1,296 @@
+/* ==========================================================
+   Unidad Pastoral de Infiesto — hoja de estilos
+   Colores y medidas en variables: cambiar aquí cambia toda la web.
+   ========================================================== */
+
+:root {
+  --fondo: #faf7f1;
+  --superficie: #ffffff;
+  --tinta: #24221e;
+  --tinta-suave: #5f584d;
+  --linea: #e5ddcf;
+  --verde: #1f4a39;
+  --verde-claro: #e6efe9;
+  --granate: #8e3426;
+  --oro: #b48a3c;
+  --pendiente-fondo: #fbf3e2;
+  --pendiente-borde: #d9bd84;
+
+  --monte-1: #163829;
+  --monte-2: #2c5c47;
+  --monte-3: #4a7a62;
+
+  --radio: 10px;
+  --sombra: 0 1px 2px rgb(30 25 15 / .06), 0 4px 14px rgb(30 25 15 / .06);
+  --ancho: 1080px;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #171a18;
+    --superficie: #20241f;
+    --tinta: #ece8df;
+    --tinta-suave: #b4ada0;
+    --linea: #353a33;
+    --verde: #8fc3a8;
+    --verde-claro: #23312a;
+    --granate: #e29a8a;
+    --oro: #d6b06a;
+    --pendiente-fondo: #2c2719;
+    --pendiente-borde: #7a6535;
+    --sombra: none;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 400 1.125rem/1.6 var(--sans); /* 18px: lectura cómoda para todas las edades */
+}
+
+h1, h2, h3 { font-family: var(--serif); line-height: 1.2; font-weight: 600; margin: 0 0 .5em; }
+h1 { font-size: clamp(2rem, 1.4rem + 3vw, 3rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.5rem, 1.25rem + 1vw, 1.9rem); color: var(--verde); }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+a { color: var(--verde); text-underline-offset: .15em; }
+a:hover { color: var(--granate); }
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible { outline: 3px solid var(--oro); outline-offset: 2px; border-radius: 4px; }
+
+.contenedor { width: 100%; max-width: var(--ancho); margin-inline: auto; padding-inline: 16px; }
+@media (min-width: 700px) { .contenedor { padding-inline: 24px; } }
+
+.saltar { position: absolute; left: -999px; top: 0; background: var(--superficie); padding: .5rem 1rem; z-index: 10; }
+.saltar:focus { left: 8px; top: 8px; }
+
+/* ---------- Franja de borrador ---------- */
+.borrador {
+  background: var(--oro);
+  color: #1d1708;
+  text-align: center;
+  font-size: .9rem;
+  padding: .45rem 16px;
+}
+
+/* ---------- Cabecera y pestañas ---------- */
+.cabecera { background: var(--superficie); border-bottom: 1px solid var(--linea); }
+.cabecera__fila { display: flex; align-items: center; padding-block: .9rem .6rem; }
+
+.marca { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--tinta); }
+.marca__icono { width: 2.4rem; height: 2.4rem; color: var(--verde); flex: none; }
+.marca__texto { display: flex; flex-direction: column; line-height: 1.1; }
+.marca__pre { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-suave); }
+.marca__nombre { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; }
+
+.pestanas { position: sticky; top: 0; z-index: 5; background: var(--superficie); }
+.pestanas__lista {
+  list-style: none; margin: 0 auto; display: flex; gap: .25rem;
+  overflow-x: auto; scrollbar-width: none;
+}
+.pestanas__lista::-webkit-scrollbar { display: none; }
+.pestanas a {
+  display: block; padding: .7rem .8rem; white-space: nowrap;
+  text-decoration: none; color: var(--tinta-suave); font-weight: 500;
+  border-bottom: 3px solid transparent;
+}
+.pestanas a:hover { color: var(--verde); }
+@media (max-width: 560px) {
+  .pestanas__lista { gap: 0; justify-content: space-between; padding-inline: 8px; }
+  .pestanas a { padding: .65rem .3rem; font-size: .9rem; }
+}
+.pestanas a[aria-current="page"] { color: var(--verde); border-bottom-color: var(--verde); font-weight: 600; }
+
+/* ---------- Portada (inicio) ---------- */
+.portada { position: relative; background: linear-gradient(170deg, #285c47 0%, #1f4a39 70%); color: #fff; overflow: hidden; }
+.portada__texto { position: relative; z-index: 1; padding-block: 3rem 8.5rem; }
+.portada__pre { margin: 0 0 .3rem; font-size: .85rem; letter-spacing: .16em; text-transform: uppercase; color: #cfe3d7; }
+.portada h1 { color: #fff; max-width: 16ch; }
+.portada__lema { font-size: 1.2rem; color: #e3eee7; max-width: 34ch; }
+.portada__botones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.portada__paisaje { position: absolute; inset: auto 0 0 0; width: 100%; height: 150px; }
+@media (min-width: 700px) { .portada__paisaje { height: 200px; } .portada__texto { padding-block: 4rem 11rem; } }
+.monte--3 { fill: var(--monte-3); }
+.monte--2 { fill: var(--monte-2); }
+.monte--1 { fill: var(--monte-1); }
+.monte--1 .trazo { stroke: var(--monte-1); fill: none; }
+@media (prefers-color-scheme: dark) { .monte--1 { fill: var(--fondo); } .monte--1 .trazo { stroke: var(--fondo); } }
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-block; padding: .7rem 1.2rem; border-radius: 999px;
+  background: var(--verde); color: #fff; text-decoration: none; font-weight: 600;
+  border: 2px solid var(--verde);
+}
+.boton:hover { background: var(--granate); border-color: var(--granate); color: #fff; }
+.boton--claro { background: #fff; color: #1f4a39; border-color: #fff; }
+.boton--claro:hover { background: #f1e6cf; border-color: #f1e6cf; color: #1f4a39; }
+.boton--borde { background: transparent; color: #fff; border-color: rgb(255 255 255 / .7); }
+.boton--borde:hover { background: rgb(255 255 255 / .12); border-color: #fff; color: #fff; }
+@media (prefers-color-scheme: dark) { .boton { color: #10201a; } .boton:hover { color: #10201a; } }
+
+/* ---------- Cabecera de página interior ---------- */
+.cabecera-pagina { background: var(--verde-claro); padding-block: 2.2rem 1.6rem; }
+.cabecera-pagina h1 { color: var(--verde); margin-bottom: .3rem; }
+.entradilla { font-size: 1.2rem; color: var(--tinta-suave); max-width: 60ch; margin: 0; }
+.entradilla:empty { display: none; }
+.migas { margin: 0 0 .3rem; font-size: .95rem; color: var(--tinta-suave); }
+
+/* ---------- Subsecciones (índice de la página) ---------- */
+.subsecciones { background: var(--fondo); border-bottom: 1px solid var(--linea); }
+.subsecciones__lista {
+  list-style: none; margin: 0 auto; display: flex; gap: .5rem;
+  padding-block: .75rem; overflow-x: auto; scrollbar-width: none;
+}
+.subsecciones__lista::-webkit-scrollbar { display: none; }
+.subsecciones a {
+  display: block; white-space: nowrap; padding: .35rem .85rem; border-radius: 999px;
+  background: var(--superficie); border: 1px solid var(--linea);
+  color: var(--tinta); text-decoration: none; font-size: .95rem;
+}
+.subsecciones a:hover { border-color: var(--verde); color: var(--verde); }
+
+/* ---------- Contenido ---------- */
+.contenido { padding-block: 1rem 3rem; }
+.seccion { padding-block: 1.75rem; border-bottom: 1px solid var(--linea); }
+.seccion:last-child { border-bottom: 0; }
+.seccion__cabeza { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .75rem; }
+.seccion__cabeza h2 { margin: 0; }
+.enlace-mas { font-weight: 600; text-decoration: none; }
+.nota { color: var(--tinta-suave); font-size: .95rem; margin-top: 1rem; }
+.lista-simple { padding-left: 1.2rem; }
+.lista-simple li { margin-bottom: .4rem; }
+
+.aviso-horario {
+  margin: 1.5rem 0 0; padding: .8rem 1rem; border-left: 4px solid var(--oro);
+  background: var(--superficie); border-radius: 0 var(--radio) var(--radio) 0; font-size: 1rem;
+}
+
+.pendiente {
+  margin: 1rem 0; padding: .8rem 1rem; border: 1px dashed var(--pendiente-borde);
+  background: var(--pendiente-fondo); border-radius: var(--radio); color: var(--tinta-suave); font-size: 1rem;
+}
+.pendiente__etiqueta {
+  display: inline-block; margin-right: .4rem; padding: .05rem .5rem; border-radius: 4px;
+  background: var(--pendiente-borde); color: #2b2207; font-size: .75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; vertical-align: .1em;
+}
+
+/* ---------- Próximas misas ---------- */
+.proximas { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+@media (min-width: 700px) { .proximas { grid-template-columns: repeat(2, 1fr); } }
+.proxima {
+  display: grid; grid-template-columns: auto 1fr; grid-template-areas: "hora cuando" "hora lugar";
+  column-gap: 1rem; align-items: center;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: .8rem 1rem; box-shadow: var(--sombra);
+}
+.proxima__hora { grid-area: hora; font-family: var(--serif); font-size: 1.8rem; font-weight: 600; color: var(--verde); font-variant-numeric: tabular-nums; }
+.proxima__cuando { grid-area: cuando; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--granate); font-weight: 600; }
+.proxima__lugar { grid-area: lugar; font-size: 1.15rem; font-weight: 600; color: var(--tinta); text-decoration: none; }
+.proxima__lugar:hover { color: var(--verde); text-decoration: underline; }
+.proxima:first-child { border-color: var(--verde); border-width: 2px; }
+
+/* ---------- Listas de misas ---------- */
+.columnas { display: grid; gap: 1rem; }
+@media (min-width: 700px) { .columnas { grid-template-columns: 1fr 1fr; } }
+.caja { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); padding: 1.1rem 1.2rem; box-shadow: var(--sombra); }
+.caja h3 { color: var(--verde); }
+.sufijo { font-family: var(--sans); font-size: .85rem; font-weight: 400; color: var(--tinta-suave); margin-left: .3rem; }
+
+.misas { list-style: none; margin: 0; padding: 0; }
+.misa { display: flex; gap: 1rem; align-items: baseline; padding: .55rem 0; border-top: 1px solid var(--linea); }
+.misa:first-child { border-top: 0; }
+.misa__hora { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 3.2rem; color: var(--verde); }
+.misa__lugar { flex: 1; }
+.misa__dia { color: var(--tinta-suave); min-width: 5.5rem; }
+
+.filtro { display: inline-flex; align-items: center; gap: .5rem; font-size: 1rem; }
+.filtro select {
+  font: inherit; padding: .4rem .6rem; border-radius: 8px; border: 1px solid var(--linea);
+  background: var(--superficie); color: var(--tinta);
+}
+.rejilla-parroquias { display: grid; gap: 1rem; }
+@media (min-width: 600px) { .rejilla-parroquias { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .rejilla-parroquias { grid-template-columns: repeat(3, 1fr); } }
+.bloque-parroquia h3 a { text-decoration: none; }
+.bloque-parroquia[hidden] { display: none; }
+
+/* ---------- Tarjetas ---------- */
+.tarjetas { display: grid; gap: 1rem; }
+@media (min-width: 600px) { .tarjetas { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } }
+.tarjeta { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); padding: 1rem 1.2rem; box-shadow: var(--sombra); }
+.tarjeta h3 { margin-bottom: .3rem; color: var(--verde); }
+.tarjeta p:last-child { margin-bottom: 0; }
+.tarjeta--aviso { border-left: 4px solid var(--granate); }
+
+.accesos { display: grid; gap: 1rem; }
+@media (min-width: 600px) { .accesos { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .accesos { grid-template-columns: repeat(4, 1fr); } }
+.acceso {
+  display: flex; flex-direction: column; gap: .3rem; padding: 1.1rem 1.2rem;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
+  text-decoration: none; color: var(--tinta); box-shadow: var(--sombra); transition: border-color .15s, transform .15s;
+}
+.acceso:hover { border-color: var(--verde); color: var(--tinta); transform: translateY(-2px); }
+.acceso__titulo { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; color: var(--verde); }
+.acceso__titulo::after { content: " →"; }
+.acceso__texto { font-size: 1rem; color: var(--tinta-suave); }
+
+/* ---------- Parroquias ---------- */
+.tarjetas-parroquia { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.tarjeta-parroquia {
+  display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: var(--tinta);
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); box-shadow: var(--sombra);
+  transition: border-color .15s, transform .15s;
+}
+.tarjeta-parroquia:hover { border-color: var(--verde); color: var(--tinta); transform: translateY(-2px); }
+.tarjeta-parroquia img, .tarjeta-parroquia .foto-vacia { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; }
+.tarjeta-parroquia__cuerpo { display: flex; flex-direction: column; gap: .2rem; padding: .8rem 1rem 1rem; }
+.tarjeta-parroquia__nombre { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--verde); }
+.tarjeta-parroquia__misas { font-size: .95rem; color: var(--tinta-suave); }
+
+.foto-vacia {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+  background: repeating-linear-gradient(135deg, var(--verde-claro) 0 14px, transparent 14px 28px), var(--fondo);
+  color: var(--verde); opacity: .9;
+}
+.foto-vacia svg { width: 30%; max-width: 90px; opacity: .55; }
+.foto-vacia--grande { aspect-ratio: 16 / 7; border-radius: var(--radio); font-size: .95rem; color: var(--tinta-suave); }
+.foto-ficha { margin: 1.5rem 0 0; }
+.foto-ficha img { border-radius: var(--radio); width: 100%; aspect-ratio: 16 / 7; object-fit: cover; }
+.foto-ficha figcaption { font-size: .85rem; color: var(--tinta-suave); margin-top: .4rem; }
+
+.datos { display: grid; grid-template-columns: max-content 1fr; gap: .5rem 1.5rem; margin: 0; }
+.datos dt { font-weight: 600; color: var(--tinta-suave); }
+.datos dd { margin: 0; }
+
+/* ---------- Pie ---------- */
+.pie { background: #1b2f26; color: #d5ddd7; padding-block: 2.5rem; font-size: .95rem; }
+.pie a { color: #fff; }
+.pie__rejilla { display: grid; gap: 1.5rem; }
+@media (min-width: 800px) { .pie__rejilla { grid-template-columns: 1.4fr 1fr 1.4fr; } }
+.pie__nombre { font-family: var(--serif); font-size: 1.25rem; color: #fff; margin-bottom: .3rem; }
+.pie__enlaces { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.pie__legal p { margin-bottom: .4rem; }
+.pie__nota { color: #a7b5ac; }
+
+/* En el móvil, las parroquias se listan en filas con miniatura para no alargar la página. */
+@media (max-width: 599px) {
+  .tarjetas-parroquia { gap: .6rem; }
+  .tarjeta-parroquia { flex-direction: row; align-items: center; }
+  .tarjeta-parroquia img, .tarjeta-parroquia .foto-vacia { width: 88px; flex: none; aspect-ratio: 1; align-self: stretch; }
+  .tarjeta-parroquia .foto-vacia svg { width: 50%; }
+  .tarjeta-parroquia__cuerpo { padding: .7rem 1rem; }
+}

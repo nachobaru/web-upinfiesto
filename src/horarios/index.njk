@@ -1,0 +1,83 @@
+---
+layout: base.njk
+title: Horarios de misa
+seccion: horarios
+entradilla: Misas de sábado por la tarde y de domingo en las parroquias de la Unidad Pastoral.
+subsecciones:
+  - { id: fin-de-semana, titulo: Fin de semana }
+  - { id: diario, titulo: Entre semana }
+  - { id: por-parroquia, titulo: Por parroquia }
+  - { id: especiales, titulo: Horarios especiales }
+---
+{% import "macros.njk" as m %}
+
+<p class="aviso-horario">{{ misas.aviso }}</p>
+
+<section id="fin-de-semana" class="seccion">
+  <h2>Fin de semana</h2>
+  <div class="columnas">
+    <div class="caja">
+      <h3>Sábado <span class="sufijo">misas vespertinas</span></h3>
+      <ul class="misas">
+        {% for misa in misas.semanal | misasDia("sabado") %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}
+      </ul>
+    </div>
+    <div class="caja">
+      <h3>Domingo</h3>
+      <ul class="misas">
+        {% for misa in misas.semanal | misasDia("domingo") %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="diario" class="seccion">
+  <h2>Entre semana</h2>
+  {% set laborables = misas.semanal | diasConMisa | reject("equalto", "sabado") | reject("equalto", "domingo") %}
+  {% if laborables | length %}
+    {% for dia in laborables %}
+    <h3>{{ dia | diaNombre }}</h3>
+    <ul class="misas">{% for misa in misas.semanal | misasDia(dia) %}{{ m.filaMisa(misa, parroquias) }}{% endfor %}</ul>
+    {% endfor %}
+  {% else %}
+    {{ m.pendiente("Horario de misas de lunes a viernes.") }}
+  {% endif %}
+</section>
+
+<section id="por-parroquia" class="seccion">
+  <div class="seccion__cabeza">
+    <h2>Por parroquia</h2>
+    <label class="filtro">
+      <span>Ver parroquia</span>
+      <select id="filtro-parroquia">
+        <option value="">Todas</option>
+        {% for p in parroquias %}<option value="{{ p.slug }}">{{ p.nombre }}</option>{% endfor %}
+      </select>
+    </label>
+  </div>
+  <div class="rejilla-parroquias">
+    {% for p in parroquias %}
+    {% set suyas = misas.semanal | misasDe(p.slug) %}
+    <div class="caja bloque-parroquia" data-slug="{{ p.slug }}">
+      <h3><a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a></h3>
+      {% if suyas | length %}
+      <ul class="misas">{% for misa in suyas %}{{ m.filaMisa(misa, parroquias, true) }}{% endfor %}</ul>
+      {% else %}
+      <p class="nota">Sin misa fija este fin de semana.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <p class="nota">Faltan por añadir el resto de las {{ site.numeroParroquias }} parroquias de la Unidad Pastoral.</p>
+</section>
+
+<section id="especiales" class="seccion">
+  <h2>Horarios especiales</h2>
+  {% if misas.especiales | length %}
+  <ul class="lista-simple">
+    {% for e in misas.especiales %}<li><strong>{{ e.titulo }}</strong> — {{ e.texto }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  {{ m.pendiente("Cambios de horario de verano, Navidad, Semana Santa y fiestas patronales.") }}
+  {% endif %}
+</section>

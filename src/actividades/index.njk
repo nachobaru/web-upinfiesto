@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: Actividades
+seccion: actividades
+entradilla: La vida de la Unidad Pastoral más allá de la misa del domingo.
+subsecciones:
+  - { id: catequesis, titulo: Catequesis }
+  - { id: liturgia, titulo: Liturgia y coro }
+  - { id: caritas, titulo: Cáritas }
+  - { id: grupos, titulo: Grupos }
+  - { id: fiestas, titulo: Fiestas }
+---
+{% import "macros.njk" as m %}
+
+{% for a in actividades %}
+<section id="{{ a.id }}" class="seccion">
+  <h2>{{ a.titulo }}</h2>
+  {% if a.texto %}<p>{{ a.texto }}</p>{% endif %}
+  {% if a.detalles | length %}
+  <ul class="lista-simple">{% for d in a.detalles %}<li>{{ d }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if not a.texto %}{{ m.pendiente("Descripción, horarios y persona de contacto.") }}{% endif %}
+</section>
+{% endfor %}

@@ -1,0 +1,61 @@
+---
+layout: base.njk
+seccion: parroquias
+pagination:
+  data: parroquias
+  size: 1
+  alias: p
+permalink: "/parroquias/{{ p.slug }}/"
+migas: { titulo: Parroquias, url: /parroquias/ }
+eleventyComputed:
+  title: "{{ p.nombre }}"
+  cabecera: "Parroquia de {{ p.nombre }}"
+  entradilla: "{{ p.templo }}"
+subsecciones:
+  - { id: horario, titulo: Horario }
+  - { id: templo, titulo: El templo }
+  - { id: historia, titulo: Historia }
+  - { id: como-llegar, titulo: Cómo llegar }
+---
+{% import "macros.njk" as m %}
+{% set suyas = misas.semanal | misasDe(p.slug) %}
+
+<figure class="foto-ficha">
+  {% if p.foto %}
+  <img src="{{ p.foto }}" alt="Iglesia de {{ p.nombre }}">
+  {% if p.fotoCredito %}<figcaption>{{ p.fotoCredito }}</figcaption>{% endif %}
+  {% else %}
+  <span class="foto-vacia foto-vacia--grande">{{ m.iglesia() }}<span>Foto pendiente</span></span>
+  {% endif %}
+</figure>
+
+<section id="horario" class="seccion">
+  <h2>Horario de misas</h2>
+  {% if suyas | length %}
+  <ul class="misas">{% for misa in suyas %}{{ m.filaMisa(misa, parroquias, true) }}{% endfor %}</ul>
+  {% else %}
+  <p>No hay misa fija este fin de semana. Consulte los <a href="/horarios/">horarios de toda la Unidad Pastoral</a>.</p>
+  {% endif %}
+  <p class="nota">{{ misas.aviso }}</p>
+</section>
+
+<section id="templo" class="seccion">
+  <h2>El templo</h2>
+  <dl class="datos">
+    <dt>Iglesia</dt><dd>{{ p.templo or "Pendiente" }}</dd>
+    <dt>Advocación</dt><dd>{{ p.advocacion or "Pendiente" }}</dd>
+    <dt>Fiestas</dt><dd>{{ p.fiestas or "Pendiente" }}</dd>
+  </dl>
+</section>
+
+<section id="historia" class="seccion">
+  <h2>Historia</h2>
+  {% if p.historia %}<p>{{ p.historia }}</p>{% else %}{{ m.pendiente("Breve historia de la parroquia y de su iglesia.") }}{% endif %}
+</section>
+
+<section id="como-llegar" class="seccion">
+  <h2>Cómo llegar</h2>
+  {% if p.direccion %}<p>{{ p.direccion }}</p>{% endif %}
+  {% if p.mapa %}<p><a class="boton" href="{{ p.mapa }}" rel="noopener">Abrir en el mapa</a></p>{% endif %}
+  {% if not p.direccion and not p.mapa %}{{ m.pendiente("Dirección y enlace al mapa.") }}{% endif %}
+</section>

@@ -1,0 +1,56 @@
+---
+layout: base.njk
+title: Contacto
+seccion: contacto
+entradilla: Despacho parroquial, sacerdotes y trámites.
+subsecciones:
+  - { id: despacho, titulo: Despacho parroquial }
+  - { id: sacerdotes, titulo: Sacerdotes }
+  - { id: sacramentos, titulo: Sacramentos y trámites }
+  - { id: whatsapp, titulo: Canal de WhatsApp }
+---
+{% import "macros.njk" as m %}
+{% set d = site.despacho %}
+
+<section id="despacho" class="seccion">
+  <h2>Despacho parroquial</h2>
+  <dl class="datos">
+    <dt>Dirección</dt><dd>{{ d.direccion or "Pendiente" }}</dd>
+    <dt>Teléfono</dt><dd>{% if d.telefono %}<a href="tel:{{ d.telefono | replace(' ', '') }}">{{ d.telefono }}</a>{% else %}Pendiente{% endif %}</dd>
+    <dt>Correo</dt><dd>{% if d.email %}<a href="mailto:{{ d.email }}">{{ d.email }}</a>{% else %}Pendiente{% endif %}</dd>
+    <dt>Horario</dt><dd>{{ d.horario or "Pendiente" }}</dd>
+  </dl>
+</section>
+
+<section id="sacerdotes" class="seccion">
+  <h2>Sacerdotes</h2>
+  {% if site.sacerdotes | length %}
+  <ul class="lista-simple">{% for s in site.sacerdotes %}<li><strong>{{ s.nombre }}</strong>{% if s.cargo %} — {{ s.cargo }}{% endif %}</li>{% endfor %}</ul>
+  {% else %}
+  {{ m.pendiente("Nombre del párroco y de los sacerdotes que atienden la Unidad Pastoral.") }}
+  {% endif %}
+</section>
+
+<section id="sacramentos" class="seccion">
+  <h2>Sacramentos y trámites</h2>
+  <p>Para cualquiera de estos trámites, póngase en contacto con el despacho parroquial con tiempo suficiente.</p>
+  <div class="tarjetas">
+    <div class="tarjeta"><h3>Bautismo</h3></div>
+    <div class="tarjeta"><h3>Primera comunión</h3></div>
+    <div class="tarjeta"><h3>Confirmación</h3></div>
+    <div class="tarjeta"><h3>Matrimonio</h3></div>
+    <div class="tarjeta"><h3>Funerales</h3></div>
+    <div class="tarjeta"><h3>Certificados</h3><p>Partidas de bautismo, matrimonio y otros documentos.</p></div>
+  </div>
+  {{ m.pendiente("Requisitos, documentación y plazos de cada sacramento.") }}
+</section>
+
+<section id="whatsapp" class="seccion">
+  <h2>Canal de WhatsApp</h2>
+  <p>La hoja parroquial con los horarios y avisos de cada semana se publica en el canal de WhatsApp de la Unidad Pastoral.</p>
+  {% if site.whatsapp %}
+  <p><a class="boton" href="{{ site.whatsapp }}" rel="noopener">Unirse al canal</a></p>
+  {% else %}
+  {{ m.pendiente("Enlace para unirse al canal.") }}
+  {% endif %}
+</section>

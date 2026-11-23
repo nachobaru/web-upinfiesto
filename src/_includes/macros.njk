@@ -1,0 +1,28 @@
+{# Recuadro para contenido que aún falta por completar. #}
+{% macro pendiente(texto) -%}
+<p class="pendiente"><span class="pendiente__etiqueta">Pendiente</span> {{ texto }}</p>
+{%- endmacro %}
+
+{# Pequeño dibujo de iglesia, usado como marca y como hueco de foto. #}
+{% macro iglesia(clase="") -%}
+<svg class="{{ clase }}" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <path d="M32 4v8M28 8h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M24 26 32 14l8 12v8H24z" fill="currentColor"/>
+  <path d="M8 60V38l16-10v32zM40 28l16 10v22H40z" fill="currentColor" opacity=".7"/>
+  <path d="M22 60V32h20v28h-6V48a4 4 0 0 0-8 0v12z" fill="currentColor"/>
+</svg>
+{%- endmacro %}
+
+{# Una misa. En un listado general: hora + lugar. Dentro de una parroquia (porDia): día + hora. #}
+{% macro filaMisa(misa, parroquias, porDia=false) -%}
+{% set p = parroquias | porSlug(misa.parroquia) %}
+<li class="misa">
+  {%- if porDia %}<span class="misa__dia">{{ misa.dia | diaNombre }}</span>{% endif %}
+  <span class="misa__hora">{{ misa.hora }}</span>
+  {%- if not porDia %}
+  <span class="misa__lugar">
+    {%- if p %}<a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a>{% else %}{{ misa.parroquia }}{% endif -%}
+  </span>
+  {%- endif %}
+</li>
+{%- endmacro %}

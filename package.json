@@ -1,0 +1,14 @@
+{
+  "name": "web-upinfiesto",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Web de la Unidad Pastoral de Infiesto (Piloña, Asturias)",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.8"
+  }
+}

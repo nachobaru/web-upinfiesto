@@ -1,0 +1,7 @@
+[
+  { "id": "inicio", "titulo": "Inicio", "url": "/" },
+  { "id": "horarios", "titulo": "Horarios", "url": "/horarios/" },
+  { "id": "parroquias", "titulo": "Parroquias", "url": "/parroquias/" },
+  { "id": "actividades", "titulo": "Actividades", "url": "/actividades/" },
+  { "id": "contacto", "titulo": "Contacto", "url": "/contacto/" }
+]

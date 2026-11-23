@@ -1,0 +1,63 @@
+---
+layout: base.njk
+title: Inicio
+seccion: inicio
+subsecciones:
+  - { id: proximas, titulo: Próximas misas }
+  - { id: avisos, titulo: Avisos }
+  - { id: accesos, titulo: Accesos rápidos }
+---
+{% import "macros.njk" as m %}
+
+<section id="proximas" class="seccion">
+  <div class="seccion__cabeza">
+    <h2>Próximas misas</h2>
+    <a class="enlace-mas" href="/horarios/">Todos los horarios →</a>
+  </div>
+  <ol class="proximas" id="lista-proximas">
+    {% for misa in misas.semanal | ordenSemana %}
+    {% set p = parroquias | porSlug(misa.parroquia) %}
+    <li class="proxima" data-dia="{{ misa.dia | diaNum }}" data-hora="{{ misa.hora }}">
+      <span class="proxima__cuando">{{ misa.dia | diaNombre }}</span>
+      <span class="proxima__hora">{{ misa.hora }}</span>
+      <a class="proxima__lugar" href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="nota">{{ misas.aviso }}</p>
+</section>
+
+<section id="avisos" class="seccion">
+  <h2>Avisos</h2>
+  <div class="tarjetas">
+    {% for aviso in avisos %}
+    <article class="tarjeta tarjeta--aviso">
+      <h3>{{ aviso.titulo }}</h3>
+      <p>{{ aviso.texto }}</p>
+      {% if aviso.enlace %}<p><a href="{{ aviso.enlace }}">Más información →</a></p>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="accesos" class="seccion">
+  <h2>Accesos rápidos</h2>
+  <div class="accesos">
+    <a class="acceso" href="/horarios/">
+      <span class="acceso__titulo">Horarios de misa</span>
+      <span class="acceso__texto">Sábados, domingos y festivos en todas las parroquias.</span>
+    </a>
+    <a class="acceso" href="/parroquias/">
+      <span class="acceso__titulo">Parroquias</span>
+      <span class="acceso__texto">Los templos de Piloña: dónde están y cuándo hay misa.</span>
+    </a>
+    <a class="acceso" href="/actividades/">
+      <span class="acceso__titulo">Actividades</span>
+      <span class="acceso__texto">Catequesis, Cáritas, coro, grupos y fiestas.</span>
+    </a>
+    <a class="acceso" href="/contacto/#whatsapp">
+      <span class="acceso__titulo">Hoja parroquial</span>
+      <span class="acceso__texto">Cada semana en el canal de WhatsApp.</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: Parroquias
+seccion: parroquias
+entradilla: La Unidad Pastoral de Infiesto reúne las parroquias del concejo de Piloña.
+subsecciones:
+  - { id: listado, titulo: Listado }
+  - { id: mapa, titulo: Mapa }
+---
+{% import "macros.njk" as m %}
+
+<section id="listado" class="seccion">
+  <h2>Listado de parroquias</h2>
+  <div class="tarjetas-parroquia">
+    {% for p in parroquias %}
+    {% set suyas = misas.semanal | misasDe(p.slug) %}
+    <a class="tarjeta-parroquia" href="/parroquias/{{ p.slug }}/">
+      {% if p.foto %}
+      <img src="{{ p.foto }}" alt="Iglesia de {{ p.nombre }}" loading="lazy">
+      {% else %}
+      <span class="foto-vacia">{{ m.iglesia() }}</span>
+      {% endif %}
+      <span class="tarjeta-parroquia__cuerpo">
+        <span class="tarjeta-parroquia__nombre">{{ p.nombre }}</span>
+        <span class="tarjeta-parroquia__misas">
+          {% if suyas | length %}{% for misa in suyas %}{{ misa.dia | diaNombre }} {{ misa.hora }}{% if not loop.last %} · {% endif %}{% endfor %}{% else %}Sin misa fija{% endif %}
+        </span>
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+  {{ m.pendiente("Añadir las " ~ (site.numeroParroquias - parroquias.length) ~ " parroquias restantes hasta completar las " ~ site.numeroParroquias ~ ".") }}
+</section>
+
+<section id="mapa" class="seccion">
+  <h2>Mapa</h2>
+  {{ m.pendiente("Mapa del concejo con la ubicación de cada iglesia.") }}
+</section>

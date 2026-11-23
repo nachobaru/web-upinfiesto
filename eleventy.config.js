@@ -30,6 +30,7 @@ export default function (eleventyConfig) {
   // Añade el prefijo de GitHub Pages (/web-upinfiesto/) a todos los enlaces.
   eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addWatchTarget("contenido/");
 
   eleventyConfig.addFilter("diaNombre", (dia) => DIAS[dia]?.nombre ?? dia);
   eleventyConfig.addFilter("diaNum", (dia) => DIAS[dia]?.num);

@@ -374,3 +374,21 @@ a.lugar:hover { background: var(--verde-medio); color: var(--verde); }
 .texto-legal ul { padding-left: 1.2rem; }
 .texto-legal li { margin-bottom: .4rem; }
 .pie__legal a { color: var(--verde); }
+
+/* ---------- Recordatorio («Añadir a mi calendario») ---------- */
+.recordatorio { margin-left: auto; }
+.recordatorio summary {
+  display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; list-style: none;
+  padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--linea);
+  font-size: .9rem; font-weight: 600; color: var(--verde); background: var(--superficie);
+}
+.recordatorio summary::-webkit-details-marker { display: none; }
+.recordatorio summary:hover, .recordatorio[open] summary { border-color: var(--verde); background: var(--verde-claro); }
+.recordatorio summary svg { width: 1.05rem; height: 1.05rem; }
+.recordatorio[open] { flex-basis: 100%; margin-left: 0; margin-top: .4rem; }
+.recordatorio__opciones { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.recordatorio__opciones .boton { font-size: .95rem; padding: .5rem 1rem; }
+.recordatorio__opciones small { font-weight: 400; opacity: .85; }
+@media (max-width: 599px) {
+  .recordatorio { flex-basis: 100%; margin-left: 0; margin-top: .3rem; }
+}

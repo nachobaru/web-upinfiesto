@@ -1,30 +1,7 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
+import { DIAS, LABORABLES, porDiaYHora, resumenDias } from "./lib/horario.js";
+import { enlaceGoogle } from "./lib/calendario.js";
 
-// Días de la semana empezando en lunes. «num» es el número de JavaScript (0 = domingo).
-const DIAS = {
-  lunes: { nombre: "Lunes", orden: 1, num: 1 },
-  martes: { nombre: "Martes", orden: 2, num: 2 },
-  miercoles: { nombre: "Miércoles", orden: 3, num: 3 },
-  jueves: { nombre: "Jueves", orden: 4, num: 4 },
-  viernes: { nombre: "Viernes", orden: 5, num: 5 },
-  sabado: { nombre: "Sábado", orden: 6, num: 6 },
-  domingo: { nombre: "Domingo", orden: 7, num: 0 },
-};
-const LABORABLES = ["lunes", "martes", "miercoles", "jueves", "viernes"];
-
-const porDiaYHora = (a, b) =>
-  DIAS[a.dia].orden - DIAS[b.dia].orden || a.hora.localeCompare(b.hora);
-
-// «De lunes a viernes», «Sábado», «Lunes y miércoles», «Lunes, miércoles y viernes».
-function textoDias(dias) {
-  const orden = dias.map((d) => DIAS[d].orden).sort((a, b) => a - b);
-  const nombres = orden.map((o) => Object.values(DIAS).find((d) => d.orden === o).nombre);
-  const seguidos = orden.every((o, i) => i === 0 || o === orden[i - 1] + 1);
-  if (nombres.length === 1) return nombres[0];
-  if (seguidos && nombres.length >= 3)
-    return `De ${nombres[0].toLowerCase()} a ${nombres.at(-1).toLowerCase()}`;
-  return nombres.slice(0, -1).join(", ") + " y " + nombres.at(-1).toLowerCase();
-}
 
 export default function (eleventyConfig) {
   // Añade el prefijo de GitHub Pages (/web-upinfiesto/) a todos los enlaces.
@@ -53,18 +30,11 @@ export default function (eleventyConfig) {
     return [...grupos].map(([hora, misas]) => ({ hora, misas }));
   });
 
-  // La misma misa repetida varios días, en una sola línea: [{ diasTexto, hora, parroquia, lugar }]
-  eleventyConfig.addFilter("resumenDias", (misas) => {
-    const grupos = new Map();
-    for (const m of [...misas].sort(porDiaYHora)) {
-      const clave = [m.hora, m.parroquia, m.lugar ?? ""].join("|");
-      if (!grupos.has(clave)) grupos.set(clave, { ...m, dias: [] });
-      grupos.get(clave).dias.push(m.dia);
-    }
-    return [...grupos.values()]
-      .sort((a, b) => DIAS[a.dias[0]].orden - DIAS[b.dias[0]].orden || a.hora.localeCompare(b.hora))
-      .map((g) => ({ ...g, diasTexto: textoDias(g.dias) }));
-  });
+  // La misma misa repetida varios días, en una sola línea (ver lib/horario.js).
+  eleventyConfig.addFilter("resumenDias", resumenDias);
+
+  // Enlace para añadir una misa a Google Calendar (ver lib/calendario.js).
+  eleventyConfig.addFilter("enlaceGoogle", enlaceGoogle);
 
   // Enlace de búsqueda en Google Maps (no necesita coordenadas).
   eleventyConfig.addFilter("mapaUrl", (consulta) =>

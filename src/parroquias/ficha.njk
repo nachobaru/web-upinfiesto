@@ -33,7 +33,8 @@ subsecciones:
 <section id="horario" class="seccion">
   <h2>Horario de misas</h2>
   {% if suyas | length %}
-  <ul class="misas">{% for r in suyas %}{{ m.filaResumen(r) }}{% endfor %}</ul>
+  <ul class="misas">{% for r in suyas %}{{ m.filaResumen(r, p) }}{% endfor %}</ul>
+  <p class="nota">El recordatorio se repite cada semana y avisa 30 minutos antes. Si el horario cambia, no se actualiza solo: los cambios de última hora se publican en el grupo de WhatsApp.</p>
   {% else %}
   <p>No hay misa fija. Consulte los <a href="/horarios/">horarios de toda la Unidad Pastoral</a>.</p>
   {% endif %}

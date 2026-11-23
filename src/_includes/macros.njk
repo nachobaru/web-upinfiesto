@@ -26,11 +26,24 @@
 </li>
 {%- endmacro %}
 
-{# Dentro de una parroquia: «De lunes a viernes · 19:30 · Capilla…». #}
-{% macro filaResumen(r) -%}
+{# Dentro de una parroquia: «De lunes a viernes · 19:30 · Capilla…».
+   Si se pasa la parroquia, añade el botón «Añadir a mi calendario». #}
+{% macro filaResumen(r, parroquia=null) -%}
 <li class="misa misa--resumen">
   <span class="misa__dia">{{ r.diasTexto }}</span>
   <span class="misa__hora">{{ r.hora }}</span>
   {%- if r.lugar %}<span class="misa__sitio">{{ r.lugar }}</span>{% endif %}
+  {%- if parroquia %}
+  <details class="recordatorio">
+    <summary>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Añadir a mi calendario
+    </summary>
+    <div class="recordatorio__opciones">
+      <a class="boton" href="{{ r | enlaceGoogle(parroquia) }}" rel="noopener">Google Calendar <small>(Android)</small></a>
+      <a class="boton boton--borde" href="/calendario/{{ r.id }}.ics">iPhone, Outlook y otros</a>
+    </div>
+  </details>
+  {%- endif %}
 </li>
 {%- endmacro %}

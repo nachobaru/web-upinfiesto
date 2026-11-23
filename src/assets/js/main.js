@@ -49,11 +49,23 @@
   caja.hidden = false;
 })();
 
-(function filtroParroquias() {
-  const select = document.getElementById("filtro-parroquia");
-  if (!select) return;
-  const bloques = document.querySelectorAll(".bloque-parroquia");
-  select.addEventListener("change", () => {
-    bloques.forEach((b) => { b.hidden = select.value !== "" && b.dataset.slug !== select.value; });
+(function botonTema() {
+  const boton = document.getElementById("boton-tema");
+  if (!boton) return;
+  const raiz = document.documentElement;
+  const sistemaOscuro = window.matchMedia("(prefers-color-scheme: dark)");
+  const esOscuro = () => raiz.dataset.tema ? raiz.dataset.tema === "oscuro" : sistemaOscuro.matches;
+  const actualizar = () => {
+    const oscuro = esOscuro();
+    boton.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    boton.setAttribute("aria-pressed", String(oscuro));
+  };
+  boton.addEventListener("click", () => {
+    const nuevo = esOscuro() ? "claro" : "oscuro";
+    raiz.dataset.tema = nuevo;
+    try { localStorage.setItem("tema", nuevo); } catch (e) {}
+    actualizar();
   });
+  sistemaOscuro.addEventListener("change", actualizar);
+  actualizar();
 })();

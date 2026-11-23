@@ -6,7 +6,6 @@ entradilla: Misas entre semana, de sábado por la tarde y de domingo en las parr
 subsecciones:
   - { id: fin-de-semana, titulo: Fin de semana }
   - { id: diario, titulo: Entre semana }
-  - { id: por-parroquia, titulo: Por parroquia }
   - { id: especiales, titulo: Horarios especiales }
 ---
 {% import "macros.njk" as m %}
@@ -47,33 +46,6 @@ subsecciones:
   {% else %}
   {{ m.pendiente("Horario de misas de lunes a viernes.") }}
   {% endif %}
-</section>
-
-<section id="por-parroquia" class="seccion">
-  <div class="seccion__cabeza">
-    <h2>Por parroquia</h2>
-    <label class="filtro">
-      <span>Ver parroquia</span>
-      <select id="filtro-parroquia">
-        <option value="">Todas</option>
-        {% for p in parroquias %}<option value="{{ p.slug }}">{{ p.nombre }}</option>{% endfor %}
-      </select>
-    </label>
-  </div>
-  <div class="rejilla-parroquias">
-    {% for p in parroquias %}
-    {% set suyas = misasLista | misasDe(p.slug) | resumenDias %}
-    <div class="caja bloque-parroquia" data-slug="{{ p.slug }}">
-      <h3><a href="/parroquias/{{ p.slug }}/">{{ p.nombre }}</a></h3>
-      {% if suyas | length %}
-      <ul class="misas">{% for r in suyas %}{{ m.filaResumen(r) }}{% endfor %}</ul>
-      {% else %}
-      <p class="nota">Sin misa fija.</p>
-      {% endif %}
-    </div>
-    {% endfor %}
-  </div>
-  <p class="nota">Faltan por añadir el resto de las {{ site.numeroParroquias }} parroquias de la Unidad Pastoral.</p>
 </section>
 
 <section id="especiales" class="seccion">

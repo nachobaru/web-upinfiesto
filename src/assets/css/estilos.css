@@ -24,6 +24,9 @@
   --monte-3: #c9e0d3;
   --monte-2: #a8cbb8;
   --iglesia: #6e9f86;
+  --boton-texto: #ffffff;
+  --boton-hover: #245641;
+  color-scheme: light;
 
   --radio: 10px;
   --sombra: 0 1px 2px rgb(30 25 15 / .06), 0 4px 14px rgb(30 25 15 / .06);
@@ -33,8 +36,34 @@
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Modo oscuro: si el visitante lo elige con el botón, o si su sistema está en oscuro y no ha elegido nada. */
+:root[data-tema="oscuro"] {
+  --fondo: #171a18;
+  --superficie: #20241f;
+  --tinta: #ece8df;
+  --tinta-suave: #b4ada0;
+  --linea: #353a33;
+  --verde: #8fc3a8;
+  --verde-claro: #23312a;
+  --verde-medio: #2b3d34;
+  --granate: #e29a8a;
+  --oro: #d6b06a;
+  --borrador-fondo: #3a3220;
+  --portada-arriba: #1f2b25;
+  --portada-abajo: #24362d;
+  --portada-texto: #e4efe8;
+  --monte-3: #2c4237;
+  --monte-2: #34503f;
+  --iglesia: #4f735f;
+  --pendiente-fondo: #2c2719;
+  --pendiente-borde: #7a6535;
+  --sombra: none;
+  --boton-texto: #10201a;
+  --boton-hover: #a9d6bd;
+  color-scheme: dark;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema="claro"]) {
     --fondo: #171a18;
     --superficie: #20241f;
     --tinta: #ece8df;
@@ -55,6 +84,9 @@
     --pendiente-fondo: #2c2719;
     --pendiente-borde: #7a6535;
     --sombra: none;
+    --boton-texto: #10201a;
+    --boton-hover: #a9d6bd;
+    color-scheme: dark;
   }
 }
 
@@ -99,7 +131,21 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ---------- Cabecera y pestañas ---------- */
 .cabecera { background: var(--superficie); border-bottom: 1px solid var(--linea); }
-.cabecera__fila { display: flex; align-items: center; padding-block: .9rem .6rem; }
+.cabecera__fila { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem .6rem; }
+
+.boton-tema {
+  display: inline-flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem;
+  border-radius: 999px; border: 1px solid var(--linea); background: var(--fondo); color: var(--verde); cursor: pointer;
+}
+.boton-tema:hover { border-color: var(--verde); background: var(--verde-claro); }
+.boton-tema svg { width: 1.3rem; height: 1.3rem; }
+.boton-tema .icono-sol { display: none; }
+:root[data-tema="oscuro"] .boton-tema .icono-sol { display: block; }
+:root[data-tema="oscuro"] .boton-tema .icono-luna { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) .boton-tema .icono-sol { display: block; }
+  :root:not([data-tema="claro"]) .boton-tema .icono-luna { display: none; }
+}
 
 .marca { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--tinta); }
 .marca__icono { width: 2.4rem; height: 2.4rem; color: var(--verde); flex: none; }
@@ -143,16 +189,12 @@ img { max-width: 100%; height: auto; display: block; }
 /* ---------- Botones ---------- */
 .boton {
   display: inline-block; padding: .7rem 1.2rem; border-radius: 999px;
-  background: var(--verde); color: #fff; text-decoration: none; font-weight: 600;
+  background: var(--verde); color: var(--boton-texto); text-decoration: none; font-weight: 600;
   border: 2px solid var(--verde);
 }
-.boton:hover { background: #245641; border-color: #245641; color: #fff; }
+.boton:hover { background: var(--boton-hover); border-color: var(--boton-hover); color: var(--boton-texto); }
 .boton--borde { background: transparent; color: var(--verde); }
 .boton--borde:hover { background: var(--verde-claro); color: var(--verde); border-color: var(--verde); }
-@media (prefers-color-scheme: dark) {
-  .boton { color: #10201a; } .boton:hover { background: #a9d6bd; border-color: #a9d6bd; color: #10201a; }
-  .boton--borde { color: var(--verde); } .boton--borde:hover { background: var(--verde-claro); color: var(--verde); }
-}
 
 /* ---------- Cabecera de página interior ---------- */
 .cabecera-pagina { background: var(--verde-claro); padding-block: 2.2rem 1.6rem; }
@@ -257,16 +299,6 @@ a.lugar:hover { background: var(--verde-medio); color: var(--verde); }
 .sacerdote__cargo { margin: 0 0 .1rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--granate); font-weight: 700; }
 .sacerdote__tel { font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; }
 
-.filtro { display: inline-flex; align-items: center; gap: .5rem; font-size: 1rem; }
-.filtro select {
-  font: inherit; padding: .4rem .6rem; border-radius: 8px; border: 1px solid var(--linea);
-  background: var(--superficie); color: var(--tinta);
-}
-.rejilla-parroquias { display: grid; gap: 1rem; }
-@media (min-width: 600px) { .rejilla-parroquias { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 960px) { .rejilla-parroquias { grid-template-columns: repeat(3, 1fr); } }
-.bloque-parroquia h3 a { text-decoration: none; }
-.bloque-parroquia[hidden] { display: none; }
 
 /* ---------- Tarjetas ---------- */
 .tarjetas { display: grid; gap: 1rem; }
@@ -335,3 +367,10 @@ a.lugar:hover { background: var(--verde-medio); color: var(--verde); }
   .tarjeta-parroquia .foto-vacia svg { width: 50%; }
   .tarjeta-parroquia__cuerpo { padding: .7rem 1rem; }
 }
+
+/* ---------- Textos legales ---------- */
+.texto-legal { max-width: 70ch; }
+.texto-legal h2 { margin-top: 2rem; font-size: 1.4rem; }
+.texto-legal ul { padding-left: 1.2rem; }
+.texto-legal li { margin-bottom: .4rem; }
+.pie__legal a { color: var(--verde); }

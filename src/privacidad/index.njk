@@ -1,0 +1,47 @@
+---
+layout: base.njk
+title: Privacidad y cookies
+seccion: legal
+entradilla: Esta web no recoge datos personales ni usa cookies.
+subsecciones:
+  - { id: datos, titulo: Datos personales }
+  - { id: alojamiento, titulo: Alojamiento }
+  - { id: cookies, titulo: Cookies }
+  - { id: terceros, titulo: Enlaces externos }
+  - { id: derechos, titulo: Sus derechos }
+---
+{% set t = site.titular %}
+
+<div class="texto-legal">
+
+<section id="datos" class="seccion">
+  <h2>Datos personales</h2>
+  <p>Esta web es solo informativa. <strong>No tiene formularios, no pide registro y no recoge datos personales</strong> de quienes la visitan. Tampoco usa herramientas de analítica ni publicidad.</p>
+  <p>Si usted se pone en contacto con la Unidad Pastoral por teléfono, correo o WhatsApp, sus datos se usarán solo para atender su petición. Se tratarán conforme al Reglamento (UE) 2016/679 (RGPD), a la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales y al Decreto General de la Conferencia Episcopal Española sobre protección de datos personales.</p>
+  <p>Responsable: {{ t.denominacion or "pendiente" }}{% if t.email %} · <a href="mailto:{{ t.email }}">{{ t.email }}</a>{% endif %}.</p>
+</section>
+
+<section id="alojamiento" class="seccion">
+  <h2>Alojamiento de la web</h2>
+  <p>La web se publica en GitHub Pages, un servicio de GitHub, Inc. Como cualquier servidor web, GitHub puede registrar la dirección IP de los visitantes por motivos técnicos y de seguridad. La Unidad Pastoral no tiene acceso a esos registros ni los usa. Puede consultar la <a href="https://docs.github.com/es/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">declaración de privacidad de GitHub</a>.</p>
+</section>
+
+<section id="cookies" class="seccion">
+  <h2>Cookies</h2>
+  <p><strong>Esta web no usa cookies</strong>, ni propias ni de terceros. Por eso no le mostramos ningún aviso para aceptarlas.</p>
+  <p>Si usted elige el modo claro u oscuro con el botón de la cabecera, su navegador guarda esa preferencia en su propio dispositivo (almacenamiento local) para recordarla en su próxima visita. Esa información no se envía a ningún sitio y puede borrarla desde la configuración de su navegador.</p>
+</section>
+
+<section id="terceros" class="seccion">
+  <h2>Enlaces externos</h2>
+  <p>Algunos enlaces llevan a servicios de terceros, como el grupo de WhatsApp de la Unidad Pastoral o Google Maps. Al abrirlos, sale de esta web y se aplican las políticas de privacidad de esos servicios.</p>
+  <p>Tenga en cuenta que, en un grupo de WhatsApp, los demás miembros pueden ver su número de teléfono.</p>
+</section>
+
+<section id="derechos" class="seccion">
+  <h2>Sus derechos</h2>
+  <p>Puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo al responsable{% if t.email %} en <a href="mailto:{{ t.email }}">{{ t.email }}</a>{% endif %}. Si considera que no se han respetado, puede presentar una reclamación ante la <a href="https://www.aepd.es" rel="noopener">Agencia Española de Protección de Datos</a>.</p>
+  <p class="nota">Última revisión: {{ site.ultimaRevisionLegal }}.</p>
+</section>
+
+</div>

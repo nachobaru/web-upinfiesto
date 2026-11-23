@@ -22,5 +22,13 @@
       "cargo": "Vicario parroquial",
       "telefono": "+34 615 81 47 80"
     }
-  ]
+  ],
+  "titular": {
+    "denominacion": "",
+    "cif": "",
+    "domicilio": "",
+    "email": "",
+    "registroEntidadesReligiosas": ""
+  },
+  "ultimaRevisionLegal": "23 de noviembre de 2026"
 }

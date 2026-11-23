@@ -14,7 +14,7 @@ Casi todo el contenido está en ficheros de datos dentro de `src/_data/`. No hac
 | Parroquias (nombre, templo, fiestas, historia, foto…) | `src/_data/parroquias.json` |
 | Avisos extra en la portada (los avisos normales van al grupo de WhatsApp) | `src/_data/avisos.json` |
 | Actividades (catequesis, Cáritas…) | `src/_data/actividades.json` |
-| Despacho, sacerdotes, enlace de WhatsApp | `src/_data/site.json` |
+| Despacho, sacerdotes, enlace de WhatsApp y datos del titular (aviso legal) | `src/_data/site.json` |
 
 ### Añadir una misa
 

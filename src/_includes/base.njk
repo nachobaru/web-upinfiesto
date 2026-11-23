@@ -6,7 +6,11 @@
   <title>{% if seccion == "inicio" %}{{ site.nombre }}{% else %}{{ title }} · {{ site.nombre }}{% endif %}</title>
   <meta name="description" content="{{ descripcion or site.descripcion }}">
   {% if site.borrador %}<meta name="robots" content="noindex, nofollow">{% endif %}
-  <meta name="theme-color" content="#1f4a39">
+  <meta name="theme-color" content="#2e6a50">
+  <script>
+    // Aplica el tema elegido antes de pintar la página, para que no parpadee.
+    try { var t = localStorage.getItem("tema"); if (t === "claro" || t === "oscuro") document.documentElement.dataset.tema = t; } catch (e) {}
+  </script>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/css/estilos.css">
   <script src="/assets/js/main.js" defer></script>
@@ -29,6 +33,10 @@
           <span class="marca__nombre">Infiesto</span>
         </span>
       </a>
+      <button class="boton-tema" type="button" id="boton-tema" aria-label="Cambiar a modo oscuro" title="Modo claro / oscuro">
+        <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.7 14.6A8.5 8.5 0 0 1 9.4 3.3a.6.6 0 0 0-.8-.7A9.7 9.7 0 1 0 21.4 15.4a.6.6 0 0 0-.7-.8Z"/></svg>
+        <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
     </div>
     <nav class="pestanas" aria-label="Principal">
       <ul class="contenedor pestanas__lista">
@@ -73,7 +81,7 @@
         {% for item in navegacion %}<li><a href="{{ item.url }}">{{ item.titulo }}</a></li>{% endfor %}
       </ul>
       <div class="pie__legal">
-        <p>Aviso legal · Privacidad · Cookies <span class="pie__nota">(textos pendientes)</span></p>
+        <p><a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad y cookies</a></p>
         <p>Esta web no usa cookies ni recoge datos personales.</p>
         <p>© {{ build.year }} {{ site.nombre }}</p>
       </div>

@@ -15,14 +15,6 @@ subsecciones:
     <a class="enlace-mas" href="/horarios/">Todos los horarios →</a>
   </div>
 
-  {# La rellena el JavaScript con la misa (o misas) más cercana a la hora actual. #}
-  <div class="proxima" id="proxima" hidden>
-    <p class="proxima__titulo">Próxima misa</p>
-    <p class="proxima__cuando"><span class="proxima__dia"></span> · <span class="proxima__hora"></span></p>
-    <p class="proxima__lugares"></p>
-  </div>
-  <script type="application/json" id="datos-misas">{{ misasLista | datosProxima(parroquias) | safe }}</script>
-
   <div class="columnas">
     {% for dia in ["sabado", "domingo"] %}
     <div class="caja">

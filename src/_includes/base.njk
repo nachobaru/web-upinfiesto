@@ -10,13 +10,22 @@
   <script>
     // Aplica el tema elegido antes de pintar la página, para que no parpadee.
     try { var t = localStorage.getItem("tema"); if (t === "claro" || t === "oscuro") document.documentElement.dataset.tema = t; } catch (e) {}
+    // Activa las animaciones salvo que el visitante haya pedido «reducir movimiento».
+    // Si el script principal no llegara a cargar, se desactivan para que nada se quede oculto.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("anima");
+      setTimeout(function () { if (!window.animacionesListas) document.documentElement.classList.remove("anima"); }, 2500);
+    }
   </script>
+  <link rel="preload" href="/assets/fuentes/figtree.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fuentes/fraunces.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/css/estilos.css">
   <script src="/assets/js/main.js" defer></script>
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <div class="progreso" aria-hidden="true"></div>
 
   {% if site.borrador %}
   <div class="borrador" role="note">

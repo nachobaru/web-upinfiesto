@@ -1,20 +1,38 @@
 <section class="portada">
-  <div class="contenedor portada__texto">
-    <p class="portada__pre">Bienvenidos a la</p>
-    <h1>{{ site.nombre }}</h1>
-    <p class="portada__lema">Las {{ site.numeroParroquias }} parroquias del concejo de Piloña, en Asturias.</p>
-    <p class="portada__botones">
-      <a class="boton" href="/horarios/">Horarios de misa</a>
-      <a class="boton boton--borde" href="/contacto/">Contacto</a>
-    </p>
+  <span class="portada__mancha portada__mancha--1" aria-hidden="true"></span>
+  <span class="portada__mancha portada__mancha--2" aria-hidden="true"></span>
+
+  <div class="contenedor portada__contenido">
+    <div class="portada__texto">
+      <p class="portada__pre">Bienvenidos a la</p>
+      <h1>Unidad Pastoral de <span class="resaltado">Infiesto</span></h1>
+      <p class="portada__lema">Las {{ site.numeroParroquias }} parroquias del concejo de Piloña, en Asturias.</p>
+      <p class="portada__botones">
+        <a class="boton" href="/horarios/">Horarios de misa</a>
+        <a class="boton boton--borde" href="/contacto/">Contacto</a>
+      </p>
+    </div>
+
+    {# La rellena el JavaScript con la misa (o misas) más cercana a la hora actual. #}
+    <div class="proxima" id="proxima" hidden>
+      <p class="proxima__titulo">Próxima misa</p>
+      <p class="proxima__cuando"><span class="proxima__dia"></span> · <span class="proxima__hora"></span></p>
+      <p class="proxima__lugares"></p>
+      <p><a class="proxima__enlace" href="/horarios/">Ver todos los horarios →</a></p>
+    </div>
+    <script type="application/json" id="datos-misas">{{ misasLista | datosProxima(parroquias) | safe }}</script>
   </div>
+
+  {# Montes de Piloña. Cada capa se mueve a distinta velocidad al bajar (efecto de profundidad). #}
   <svg class="portada__paisaje" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-    <path class="monte monte--3" d="M0 120C150 60 260 95 380 52 500 10 620 90 760 46 900 4 1040 74 1200 36v184H0Z"/>
-    <path class="monte monte--2" d="M0 158c140-46 300-20 420-56 140-42 280 26 440-10 140-32 240 6 340-10v138H0Z"/>
-    <g class="monte monte--iglesia" transform="translate(842 70)">
-      <path d="M2 34V18l11-7 11 7v16z"/>
-      <path d="M17 34V9h9v25z"/>
-      <path d="M21.5 1v6M19 3.5h5" stroke-width="1.6" stroke-linecap="round" class="trazo"/>
+    <path class="monte monte--3" data-velocidad="0.22" d="M0 120C150 60 260 95 380 52 500 10 620 90 760 46 900 4 1040 74 1200 36v184H0Z"/>
+    <g data-velocidad="0.12">
+      <path class="monte monte--2" d="M0 158c140-46 300-20 420-56 140-42 280 26 440-10 140-32 240 6 340-10v138H0Z"/>
+      <g class="monte monte--iglesia" transform="translate(842 70)">
+        <path d="M2 34V18l11-7 11 7v16z"/>
+        <path d="M17 34V9h9v25z"/>
+        <path d="M21.5 1v6M19 3.5h5" stroke-width="1.6" stroke-linecap="round" class="trazo"/>
+      </g>
     </g>
     <path class="monte monte--1" d="M0 196c200-32 380-10 560-34 200-24 400 18 640-10v68H0Z"/>
   </svg>

@@ -29,7 +29,9 @@ subsecciones:
     </a>
     {% endfor %}
   </div>
-  {{ m.pendiente("Añadir las " ~ (site.numeroParroquias - parroquias.length) ~ " parroquias restantes hasta completar las " ~ site.numeroParroquias ~ ".") }}
+  {% set faltan = site.numeroParroquias - parroquias.length %}
+  {% if faltan == 1 %}{{ m.pendiente("Falta añadir 1 parroquia para completar las " ~ site.numeroParroquias ~ ".") }}
+  {% elif faltan > 1 %}{{ m.pendiente("Faltan por añadir " ~ faltan ~ " parroquias para completar las " ~ site.numeroParroquias ~ ".") }}{% endif %}
 </section>
 
 <section id="mapa" class="seccion">

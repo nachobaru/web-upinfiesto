@@ -19,7 +19,7 @@ subsecciones:
 ---
 {% import "macros.njk" as m %}
 {% set suyas = misasLista | misasDe(p.slug) | resumenDias %}
-{% set busqueda = "Iglesia " ~ p.nombre ~ ", Piloña, Asturias" %}
+{% set busqueda = (p.templo or "Iglesia") ~ ", " ~ p.nombre ~ ", Piloña, Asturias" %}
 
 <figure class="foto-ficha">
   {% if p.foto %}
